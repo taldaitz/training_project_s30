@@ -66,12 +66,8 @@ class ContactController extends AbstractController
     {
         $contacts = $contactRepository->findAll();
 
-        $result = '<ul>';
-        foreach($contacts as $contact) {
-            $result .= '<li>' . $contact->getFirstname() . ' ' . $contact->getLastname() . '</li>';
-        }
-        $result .= '</ul>';
-
-        return new Response($result);
+        return $this->render('contact/list.html.twig', [
+            'contacts' => $contacts
+        ]);
     }
 }

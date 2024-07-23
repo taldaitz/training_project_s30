@@ -25,26 +25,26 @@ class HomeController extends AbstractController
 
     #[Route('/bonjour/{number}', name: 'home_bonjour_number', requirements: ['number' => '\d+'])]
     public function sayHelloNumber(int $number) : Response
-    {
-        $message = '';
-
-        for ($i=0; $i < $number; $i++) { 
-            $message .= '<h1>Bonjour !</h1>';
-        }
-        
-        return new Response($message);
+    {        
+        return $this->render('home/hello_number.html.twig', [
+            'number' => $number
+        ]);
     }
 
     #[Route('/bonjour/{name}', name: 'home_bonjour')]
     public function sayHello(string $name) : Response
     {
-        return new Response("<h1>Bonjour $name!</h1>");
+        return $this->render('home/hello.html.twig', [
+            'name' => $name
+        ]);
     }
 
     #[Route('/bonjour/{firstname}/{lastname}', name: 'home_bonjour_complet')]
     public function sayCompleteHello(string $firstname, string $lastname) : Response
     {
-        return new Response("<h1>Bonjour $firstname $lastname!</h1>");
+        return $this->render('home/hello.html.twig', [
+            'name' => "$firstname $lastname"
+        ]);
     }
 
     
