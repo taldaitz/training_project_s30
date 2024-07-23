@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Group;
 use App\Repository\ContactRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +16,11 @@ class ContactController extends AbstractController
     #[Route('/contact/generate', name: 'app_contact_generate')]
     public function generate(EntityManagerInterface $entityManager): Response
     {
+        $groupFamily = new Group();
+        $groupFamily->setName("Famille")->setCreationDate(new DateTime());
+
+        $groupFriend = new Group();
+        $groupFriend->setName('Amis')->setCreationDate(new DateTime());
         
         $contact1 = new Contact();
         $contact1->setFirstname('Thomas');
@@ -26,21 +32,31 @@ class ContactController extends AbstractController
         $contact2->setFirstname('Robert')
             ->setLastname('Du Test')
             ->setEmail('rdutest@gmail.com')
-            ->setDateOfBirth( new DateTime());
+            ->setDateOfBirth( new DateTime())
+        ;
 
         $contact3 = new Contact();
         $contact3
             ->setFirstname('Jean')
             ->setLastname('Retest')
             ->setEmail('jretest@gmail.com')
-            ->setDateOfBirth( new DateTime());
+            ->setDateOfBirth( new DateTime())
+        ;
 
+
+        $groupFamily->addMember($contact1);
+        $groupFriend->addMember($contact2);
+        $groupFriend->addMember($contact3);
+
+
+        $entityManager->persist($groupFamily);
+        $entityManager->persist($groupFriend);
 
         $entityManager->persist($contact1);
         $entityManager->persist($contact2);
         $entityManager->persist($contact3);
 
-        //$entityManager->flush();
+        $entityManager->flush();
 
         return new Response('OK');
     }
