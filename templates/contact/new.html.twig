@@ -1,0 +1,12 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <main class="container">
+        <h1>Création d'un contact</h1>
+
+        {{ form(form) }}
+
+    </main>
+{% endblock %}

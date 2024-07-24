@@ -22,6 +22,7 @@
                     <td>{{ contact.lastname }}</td>
                     <td>{{ contact.email }}</td>
                     <td>{{ contact.dateOfBirth | date('d/m/Y') }}</td>
+                    <td>{{ contact.team.name }}</td>
                 </tr>
             {% endfor %}
             </tbody>
